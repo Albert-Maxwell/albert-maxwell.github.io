@@ -8,19 +8,45 @@ This is the official website for Albert Maxwell's crypto trading services. Our p
 - Low-Latency Execution
 - AI-Driven Analysis
 - Web3 Integration
+- Real-time Crypto Price Ticker
+- Smooth Scroll Navigation
+- Contact Form with Validation
 
 ## Technologies Used
 
 - HTML5
 - CSS3 (with Tailwind CSS)
 - JavaScript
+- Font Awesome for icons
 
 ## Setup
 
 To run this project locally:
 
 1. Clone the repository
-2. Open `index.html` in your browser
+2. Ensure you have the following folder structure:
+   ```
+   yourusername.github.io/
+   ├── index.html
+   ├── css/
+   │   └── styles.css
+   ├── js/
+   │   └── script.js
+   ├── images/
+   │   ├── hero-background.jpg
+   │   ├── about-background.jpg
+   │   ├── services-background.jpg
+   │   └── technology-background.jpg
+   └── README.md
+   ```
+3. Open `index.html` in your browser
+
+## Customization
+
+- To change the background images, replace the files in the `images/` directory and update the URLs in `styles.css` if necessary.
+- Modify the content in `index.html` to update the text and structure of the website.
+- Adjust styles in `styles.css` to change the appearance of the website.
+- Modify `script.js` to add or change dynamic features of the website.
 
 ## Deployment
 
