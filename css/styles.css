@@ -10,6 +10,7 @@
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #1a202c;
+    padding-bottom: 40px; /* 为 ticker 留出空间 */
 }
 
 .gradient-text {
@@ -51,4 +52,8 @@ body {
     background-image: var(--technology-bg);
     background-size: cover;
     background-position: center;
+}
+
+.crypto-ticker {
+    z-index: 1000;
 }
