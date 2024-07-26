@@ -57,3 +57,11 @@ body {
 .crypto-ticker {
     z-index: 1000;
 }
+
+/* 设置特定标题的颜色 */
+.about-section h2,
+.services-section h2,
+.technology-section h2,
+.contact-section h2{
+    color: #F05454;
+}
