@@ -2,9 +2,9 @@
 
 :root {
     --hero-bg: url('../images/hero-background.png');
-    --about-bg: url('../images/about-background.jpg');
-    --services-bg: url('../images/services-background.jpg');
-    --technology-bg: url('../images/technology-background.jpg');
+    --about-bg: url('../images/about-background.png');
+    --services-bg: url('../images/services-background.png');
+    --technology-bg: url('../images/technology-background.png');
 }
 
 body {
