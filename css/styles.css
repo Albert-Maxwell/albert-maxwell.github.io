@@ -58,10 +58,53 @@ body {
     z-index: 1000;
 }
 
-/* 设置特定标题的颜色 */
 .about-section h2,
 .services-section h2,
 .technology-section h2,
 .contact-section h2{
     color: #BBE1FA;
+}
+
+.school-item {
+    width: calc(16.666% - 20px);
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.school-logo {
+    width: 100%;
+    height: 100px;
+    object-fit: contain;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.school-logo:hover {
+    transform: scale(1.1);
+    transform: translateY(-5px);
+}
+
+.school-caption {
+    margin-top: 8px;
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+@media (max-width: 1024px) {
+    .school-item {
+        width: calc(33.333% - 20px);
+    }
+}
+
+@media (max-width: 640px) {
+    .school-item {
+        width: calc(50% - 20px);
+    }
 }
