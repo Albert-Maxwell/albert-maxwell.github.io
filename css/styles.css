@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
 :root {
-    --hero-bg: url('../images/hero-background.png');
-    --about-bg: url('../images/about-background.png');
-    --services-bg: url('../images/services-background.png');
-    --technology-bg: url('../images/technology-background.png');
+    --hero-bg: none;
+    --about-bg: none;
+    --services-bg: none;
+    --technology-bg: none;
 }
 
 body {
