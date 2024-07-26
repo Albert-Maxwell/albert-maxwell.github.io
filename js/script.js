@@ -17,19 +17,19 @@ function setupSmoothScroll() {
     });
 }
 
-function setupCryptoPriceTicker() {
+async function setupCryptoPriceTicker() {
     const tickerElement = document.createElement('div');
     tickerElement.className = 'crypto-ticker fixed bottom-0 left-0 right-0 bg-gray-800 text-white py-2 text-sm';
     tickerElement.style.overflowX = 'hidden';
     document.body.appendChild(tickerElement);
 
-    const currencies = ['BTC', 'ETH', 'XRP', 'LTC', 'ADA'];
+    const currencies = ['BTCUSDT', 'ETHUSDT', 'XRPUSDT', 'LTCUSDT', 'ADAUSDT'];
     let tickerContent = '';
 
-    currencies.forEach(currency => {
-        const price = (Math.random() * 10000).toFixed(2);
-        tickerContent += `${currency}: $${price} | `;
-    });
+    for (const currency of currencies) {
+        const price = await fetchPrice(currency);
+        tickerContent += `${currency.replace('USDT', '')}: $${price} | `;
+    }
 
     tickerElement.innerHTML = `<div class="ticker-content">${tickerContent.repeat(2)}</div>`;
 
@@ -47,6 +47,12 @@ function setupCryptoPriceTicker() {
         }
     `;
     document.head.appendChild(style);
+}
+
+async function fetchPrice(symbol) {
+    const response = await fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${symbol}`);
+    const data = await response.json();
+    return parseFloat(data.price).toFixed(2);
 }
 
 function setupContactForm() {
