@@ -26,18 +26,26 @@ To run this project locally:
 1. Clone the repository
 2. Ensure you have the following folder structure:
    ```
-   yourusername.github.io/
-   ├── index.html
-   ├── css/
+   .albert-maxwell.github.io
+   ├── README.md
+   ├── css
    │   └── styles.css
-   ├── js/
-   │   └── script.js
-   ├── images/
-   │   ├── hero-background.jpg
-   │   ├── about-background.jpg
-   │   ├── services-background.jpg
-   │   └── technology-background.jpg
-   └── README.md
+   ├── images
+   │   ├── about-background.png
+   │   ├── albert-maxwell-logo.png
+   │   ├── fudan-logo.png
+   │   ├── hero-background.png
+   │   ├── imperial-college-logo.png
+   │   ├── northeastern-logo.png
+   │   ├── services-background.png
+   │   ├── shanghai-jiaotong-logo.png
+   │   ├── starry-night.png
+   │   ├── stony-brook-logo.jpeg
+   │   ├── technology-background.png
+   │   └── yale-logo.jpeg
+   ├── index.html
+   └── js
+      └── script.js
    ```
 3. Open `index.html` in your browser
 
