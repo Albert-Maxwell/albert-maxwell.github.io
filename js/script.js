@@ -23,7 +23,7 @@ async function setupCryptoPriceTicker() {
     tickerElement.style.overflowX = 'hidden';
     document.body.appendChild(tickerElement);
 
-    const currencies = ['BTCUSDT', 'ETHUSDT', 'XRPUSDT', 'LTCUSDT', 'ADAUSDT'];
+    const currencies = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'XRPUSDT', 'LTCUSDT', 'DOGEUSDT', 'BOMEUSDT'];
     let tickerContent = '';
 
     for (const currency of currencies) {
@@ -31,7 +31,7 @@ async function setupCryptoPriceTicker() {
         tickerContent += `${currency.replace('USDT', '')}: $${price} | `;
     }
 
-    tickerElement.innerHTML = `<div class="ticker-content">${tickerContent.repeat(2)}</div>`;
+    tickerElement.innerHTML = `<div class="ticker-content">${tickerContent}</div>`;// Removed the tickerContent.repeat(2)
 
     const tickerContentElement = tickerElement.querySelector('.ticker-content');
     tickerContentElement.style.display = 'inline-block';
