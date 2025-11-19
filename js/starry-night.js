@@ -1,7 +1,7 @@
 /**
  * Starry Night Fluid Animation
  * Inspired by Van Gogh's masterpiece.
- * Implements a flow field particle system with mouse interaction.
+ * Implements a flow field particle system with "brush stroke" rendering.
  */
 
 const canvas = document.createElement('canvas');
@@ -20,25 +20,26 @@ canvas.style.background = '#0b1026'; // Deep dark blue background
 let width, height;
 let particles = [];
 let flowField = [];
-const rows = 50; // Grid resolution
-const cols = 50;
-let flowFieldScale = 0.01; // Noise scale
+const rows = 60; // Increased resolution for finer details
+const cols = 60;
+let flowFieldScale = 0.008; // Adjusted scale for larger swirls
 let time = 0;
 
 // Mouse interaction
-const mouse = { x: -1000, y: -1000, radius: 200 };
+const mouse = { x: -1000, y: -1000, radius: 300 };
 
-// Colors from Starry Night palette
+// Colors from Starry Night palette (Oil Painting Tones)
 const colors = [
-    '#1a1a2e', // Deep Blue
-    '#16213e', // Dark Blue
-    '#0f3460', // Navy
-    '#533483', // Purple-ish
-    '#e94560', // Accent Red (subtle)
-    '#fcd34d', // Star Yellow
-    '#fbbf24', // Amber
-    '#60a5fa', // Light Blue
-    '#ffffff'  // White stars
+    '#1a3c7a', // Deep Prussian Blue
+    '#2c5aa0', // Medium Blue
+    '#4b7bc6', // Lighter Blue
+    '#88b3c8', // Sky Blue
+    '#f4d03f', // Vibrant Yellow (Stars)
+    '#f1c40f', // Golden Yellow
+    '#d4ac0d', // Darker Gold
+    '#e59866', // Warm Orange/Brown hint
+    '#ffffff', // White highlights
+    '#0a192f'  // Very Dark Blue (Depth)
 ];
 
 class Particle {
@@ -47,12 +48,14 @@ class Particle {
         this.y = Math.random() * height;
         this.vx = 0;
         this.vy = 0;
-        this.size = Math.random() * 2 + 0.5;
-        this.maxSpeed = Math.random() * 2 + 1;
+        this.size = Math.random() * 3 + 1; // Thicker strokes
+        this.length = Math.random() * 15 + 5; // Length of the brush stroke
+        this.maxSpeed = Math.random() * 1.5 + 0.5;
         this.color = colors[Math.floor(Math.random() * colors.length)];
         this.angle = 0;
         this.age = Math.random() * 100;
         this.lifeSpan = Math.random() * 300 + 100;
+        this.alpha = Math.random() * 0.5 + 0.5; // Varying opacity for texture
     }
 
     update(flowGrid) {
@@ -64,8 +67,9 @@ class Particle {
             const angle = flowGrid[col + row * cols];
             
             // Add flow force
-            this.vx += Math.cos(angle) * 0.1;
-            this.vy += Math.sin(angle) * 0.1;
+            this.vx += Math.cos(angle) * 0.05; // Gentle force
+            this.vy += Math.sin(angle) * 0.05;
+            this.angle = angle; // Align stroke with flow
         }
 
         // Mouse interaction (Repel/Swirl)
@@ -78,17 +82,17 @@ class Particle {
             const forceDirectionY = dy / distance;
             const force = (mouse.radius - distance) / mouse.radius;
             
-            // Swirl effect
-            const swirlX = -forceDirectionY * 2;
-            const swirlY = forceDirectionX * 2;
+            // Swirl effect - stronger near mouse
+            const swirlX = -forceDirectionY * 3;
+            const swirlY = forceDirectionX * 3;
 
-            this.vx += (swirlX - forceDirectionX) * force * 0.5;
-            this.vy += (swirlY - forceDirectionY) * force * 0.5;
+            this.vx += (swirlX - forceDirectionX) * force * 0.2;
+            this.vy += (swirlY - forceDirectionY) * force * 0.2;
         }
 
         // Friction
-        this.vx *= 0.95;
-        this.vy *= 0.95;
+        this.vx *= 0.96;
+        this.vy *= 0.96;
 
         // Limit speed
         const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
@@ -107,41 +111,46 @@ class Particle {
         if (this.y > height) this.y = 0;
         if (this.y < 0) this.y = height;
 
-        // Reset if too old (creates twinkling effect)
+        // Reset if too old
         if (this.age > this.lifeSpan) {
             this.x = Math.random() * width;
             this.y = Math.random() * height;
             this.age = 0;
             this.vx = 0;
             this.vy = 0;
+            this.alpha = Math.random() * 0.5 + 0.5;
         }
     }
 
     draw(ctx) {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        // Rotate to match velocity or flow angle
+        const rotation = Math.atan2(this.vy, this.vx);
+        ctx.rotate(rotation);
+        
+        ctx.globalAlpha = this.alpha;
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx.fill();
+        // Draw a "brush stroke" (rounded rectangle/ellipse)
+        ctx.moveTo(0, 0);
+        ctx.lineTo(this.length, 0);
+        
+        ctx.strokeStyle = this.color;
+        ctx.lineWidth = this.size;
+        ctx.lineCap = 'round';
+        ctx.stroke();
+        
+        ctx.restore();
     }
-}
-
-// Simplex Noise implementation (simplified for brevity)
-// Source: https://github.com/jwagner/simplex-noise.js (Conceptually)
-// Using a simple pseudo-random gradient noise for dependency-free implementation
-function noise(x, y, z) {
-    const p = new Uint8Array(256);
-    for (let i = 0; i < 256; i++) p[i] = i;
-    // Shuffle (omitted for static noise, but we want animation)
-    // Using Math.sin for deterministic pseudo-randomness based on input
-    return Math.sin(x * 12.9898 + y * 78.233 + z * 1.5) * 43758.5453 % 1; 
 }
 
 // Better Noise Function (Perlin-ish)
 function getNoiseAngle(x, y, z) {
-    // Super simple flow field function:
-    // Combination of sine waves to create swirling patterns
-    const scale = 0.005;
-    return (Math.sin(x * scale + z) + Math.cos(y * scale + z)) * Math.PI * 2;
+    // Complex swirling pattern
+    const scale = 0.003;
+    const angle1 = (Math.sin(x * scale + z) + Math.cos(y * scale + z)) * Math.PI;
+    const angle2 = (Math.sin(x * scale * 2 + z) + Math.cos(y * scale * 2 + z)) * Math.PI;
+    return angle1 + angle2 * 0.5;
 }
 
 function init() {
@@ -156,8 +165,8 @@ function init() {
         mouse.y = -1000;
     });
 
-    // Create particles
-    const particleCount = Math.min(window.innerWidth * 0.5, 1000); // Responsive count
+    // Create particles - more particles for denser look
+    const particleCount = Math.min(window.innerWidth * 0.8, 1500); 
     for (let i = 0; i < particleCount; i++) {
         particles.push(new Particle());
     }
@@ -173,7 +182,8 @@ function resize() {
 }
 
 function animate() {
-    ctx.fillStyle = 'rgba(11, 16, 38, 0.1)'; // Trails
+    // Trail effect - use a dark blue with low opacity to create "smear"
+    ctx.fillStyle = 'rgba(11, 16, 38, 0.15)'; 
     ctx.fillRect(0, 0, width, height);
 
     // Update Flow Field
@@ -183,7 +193,7 @@ function animate() {
 
     for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++) {
-            const angle = getNoiseAngle(x * xOff, y * yOff, time * 0.0005);
+            const angle = getNoiseAngle(x * xOff, y * yOff, time * 0.0003);
             flowField[x + y * cols] = angle;
         }
     }

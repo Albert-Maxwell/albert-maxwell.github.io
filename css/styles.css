@@ -1,98 +1,93 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700&display=swap');
 
 :root {
-    --hero-bg: none;
-    --about-bg: none;
-    --services-bg: none;
-    --technology-bg: none;
+    /* Starry Night Palette */
+    --deep-blue: #0b1026;
+    --prussian-blue: #1a3c7a;
+    --star-yellow: #f4d03f;
+    --star-gold: #f1c40f;
+    --accent-blue: #4b7bc6;
+    
+    /* Glassmorphism */
+    --glass-bg: rgba(11, 16, 38, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 }
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: #0b1026;
-    /* Match canvas bg */
-    padding-bottom: 40px;
+    background-color: var(--deep-blue);
     color: #e2e8f0;
     line-height: 1.6;
+    overflow-x: hidden;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
 }
 
+/* Premium Glass Effect */
 .glass-panel {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    border-radius: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.glass-panel:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
 }
 
 .glass-header {
-    background: rgba(11, 16, 38, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(11, 16, 38, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
 }
 
 .gradient-text {
-    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    background: linear-gradient(135deg, #f4d03f, #f1c40f, #e59866); /* Gold/Yellow Gradient */
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 10px rgba(244, 208, 63, 0.2);
 }
 
+/* Sections */
 .hero-section {
-    background: transparent;
-    /* Let canvas show through */
-    position: relative;
     min-height: 100vh;
     display: flex;
     align-items: center;
-}
-
-.hero-section::before {
-    display: none;
-    /* Remove dark overlay to see stars better */
+    position: relative;
+    /* Subtle gradient to ensure text readability over canvas */
+    background: radial-gradient(circle at center, transparent 0%, rgba(11, 16, 38, 0.4) 100%);
 }
 
 .about-section,
 .services-section,
 .technology-section,
 .contact-section {
-    background: transparent;
     position: relative;
+    /* Smooth fade transitions between sections */
+    background: linear-gradient(to bottom, rgba(11, 16, 38, 0.8), rgba(26, 60, 122, 0.2), rgba(11, 16, 38, 0.9));
 }
 
-/* Add subtle gradient overlays for readability if needed, but keep it minimal */
-.services-section::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, transparent, rgba(11, 16, 38, 0.8), transparent);
-    z-index: -1;
-}
-
-.crypto-ticker {
-    z-index: 1000;
-}
-
-.about-section h2,
 .services-section h2,
 .technology-section h2,
+.about-section h2,
 .contact-section h2 {
-    color: #fcd34d;
-    /* Starry Night Yellow */
+    color: var(--star-yellow);
     margin-bottom: 3rem;
     font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
+/* Cards & Interactive Elements */
 .school-item {
     width: calc(16.666% - 20px);
     margin: 10px;
@@ -107,24 +102,54 @@ h6 {
     width: 100%;
     height: 100px;
     object-fit: contain;
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 10px;
-    border-radius: 8px;
-    transition: transform 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
 }
 
 .school-logo:hover {
-    transform: scale(1.1);
-    transform: translateY(-5px);
+    transform: translateY(-5px) scale(1.05);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--star-yellow);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
 .school-caption {
-    margin-top: 8px;
-    color: #ffffff;
+    margin-top: 12px;
+    color: #cbd5e1;
     font-size: 0.9rem;
     font-weight: 500;
+    letter-spacing: 0.02em;
 }
 
+/* Form Elements */
+input, textarea {
+    background: rgba(11, 16, 38, 0.6) !important;
+    border: 1px solid var(--glass-border) !important;
+    color: white !important;
+    backdrop-filter: blur(4px);
+}
+
+input:focus, textarea:focus {
+    border-color: var(--star-yellow) !important;
+    box-shadow: 0 0 0 2px rgba(244, 208, 63, 0.2) !important;
+}
+
+button[type="submit"], .hero-section a {
+    background: linear-gradient(135deg, #1a3c7a, #2c5aa0);
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 4px 15px rgba(26, 60, 122, 0.4);
+}
+
+button[type="submit"]:hover, .hero-section a:hover {
+    background: linear-gradient(135deg, #2c5aa0, #4b7bc6);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(26, 60, 122, 0.6);
+}
+
+/* Responsive */
 @media (max-width: 1024px) {
     .school-item {
         width: calc(33.333% - 20px);
