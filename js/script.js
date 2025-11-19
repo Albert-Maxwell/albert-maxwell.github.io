@@ -57,7 +57,7 @@ function setupSmoothScroll() {
 
 async function setupCryptoPriceTicker() {
     const tickerElement = document.createElement('div');
-    tickerElement.className = 'crypto-ticker fixed bottom-0 left-0 right-0 bg-gray-800 text-white py-2 text-sm';
+    tickerElement.className = 'crypto-ticker glass-ticker fixed bottom-0 left-0 right-0 text-white py-2 text-sm';
     tickerElement.style.overflowX = 'hidden';
     document.body.appendChild(tickerElement);
 

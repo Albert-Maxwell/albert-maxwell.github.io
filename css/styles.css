@@ -50,6 +50,23 @@ h1, h2, h3, h4, h5, h6 {
     border-bottom: 1px solid var(--glass-border);
 }
 
+.glass-footer {
+    background: rgba(11, 16, 38, 0.9);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid var(--glass-border);
+    position: relative;
+    z-index: 10;
+}
+
+.glass-ticker {
+    background: rgba(11, 16, 38, 0.95) !important; /* Override tailwind if needed */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid var(--glass-border);
+    z-index: 50;
+}
+
 .gradient-text {
     background: linear-gradient(135deg, #f4d03f, #f1c40f, #e59866); /* Gold/Yellow Gradient */
     background-clip: text;
