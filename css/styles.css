@@ -92,9 +92,9 @@ h1, h2, h3, h4, h5, h6 {
 .contact-section {
     position: relative;
     /* Increased spacing for "breathing room" */
-    padding-top: 120px;
-    padding-bottom: 120px;
-    margin-bottom: 40px;
+    padding-top: 250px;
+    padding-bottom: 250px;
+    margin-bottom: 120px;
     
     /* Premium Glassmorphic Background */
     background: rgba(11, 16, 38, 0.4); /* Very transparent dark blue */
