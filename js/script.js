@@ -73,7 +73,7 @@ async function setupCryptoPriceTicker() {
     tickerElement.style.whiteSpace = 'nowrap';
     document.body.appendChild(tickerElement);
 
-    const currencies = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'XRPUSDT', 'LTCUSDT', 'DOGEUSDT', 'BOMEUSDT'];
+    const currencies = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'XRPUSDT', 'LTCUSDT', 'DOGEUSDT'];
 
     async function updateTicker() {
         let tickerContent = '';
