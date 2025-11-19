@@ -3,7 +3,18 @@ document.addEventListener('DOMContentLoaded', () => {
     setupCryptoPriceTicker();
     setupContactForm();
     setupScrollAnimations();
+    setupCopyrightYear();
 });
+
+function setupCopyrightYear() {
+    const copyright = document.getElementById('copyright');
+    if (copyright) {
+        const currentYear = new Date().getFullYear();
+        const startYear = 2024;
+        const yearText = currentYear > startYear ? `${startYear}-${currentYear}` : startYear;
+        copyright.innerHTML = `&copy; ${yearText} Albert Maxwell. All rights reserved.`;
+    }
+}
 
 function setupScrollAnimations() {
     // Options for the observer
