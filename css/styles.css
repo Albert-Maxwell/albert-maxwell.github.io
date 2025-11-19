@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700&display=swap');
 
 :root {
     --hero-bg: none;
@@ -8,50 +8,75 @@
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #1a202c;
-    padding-bottom: 40px; /* 为 ticker 留出空间 */
+    font-family: 'Inter', sans-serif;
+    background-color: #0b1026;
+    /* Match canvas bg */
+    padding-bottom: 40px;
+    color: #e2e8f0;
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Playfair Display', serif;
+    letter-spacing: -0.02em;
+}
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.glass-header {
+    background: rgba(11, 16, 38, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .gradient-text {
     background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .hero-section {
-    background-image: var(--hero-bg);
-    background-size: cover;
-    background-position: center;
+    background: transparent;
+    /* Let canvas show through */
     position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
 }
 
 .hero-section::before {
+    display: none;
+    /* Remove dark overlay to see stars better */
+}
+
+.about-section,
+.services-section,
+.technology-section,
+.contact-section {
+    background: transparent;
+    position: relative;
+}
+
+/* Add subtle gradient overlays for readability if needed, but keep it minimal */
+.services-section::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-.about-section {
-    background-image: var(--about-bg);
-    background-size: cover;
-    background-position: center;
-}
-
-.services-section {
-    background-image: var(--services-bg);
-    background-size: cover;
-    background-position: center;
-}
-
-.technology-section {
-    background-image: var(--technology-bg);
-    background-size: cover;
-    background-position: center;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent, rgba(11, 16, 38, 0.8), transparent);
+    z-index: -1;
 }
 
 .crypto-ticker {
@@ -61,8 +86,11 @@ body {
 .about-section h2,
 .services-section h2,
 .technology-section h2,
-.contact-section h2{
-    color: #BBE1FA;
+.contact-section h2 {
+    color: #fcd34d;
+    /* Starry Night Yellow */
+    margin-bottom: 3rem;
+    font-weight: 700;
 }
 
 .school-item {
