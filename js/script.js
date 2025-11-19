@@ -1,10 +1,48 @@
 document.addEventListener('DOMContentLoaded', () => {
     setupSmoothScroll();
-
     setupCryptoPriceTicker();
-
     setupContactForm();
+    setupScrollAnimations();
 });
+
+function setupScrollAnimations() {
+    // Options for the observer
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.15 // Trigger when 15% of the element is visible
+    };
+
+    // Create the observer
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                // Optional: Stop observing once animated
+                // observer.unobserve(entry.target); 
+            }
+        });
+    }, observerOptions);
+
+    // Target sections and other elements
+    const sections = document.querySelectorAll('section');
+    sections.forEach(section => {
+        section.classList.add('reveal');
+        
+        // Also animate children for specific sections
+        const container = section.querySelector('.container');
+        if (container) {
+            // Check if it has a grid or flex container inside
+            const grid = container.querySelector('.grid, .flex');
+            if (grid) {
+                grid.classList.add('reveal-children');
+                observer.observe(grid);
+            }
+        }
+        
+        observer.observe(section);
+    });
+}
 
 function setupSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {

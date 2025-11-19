@@ -66,6 +66,7 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
     /* Subtle gradient to ensure text readability over canvas */
     background: radial-gradient(circle at center, transparent 0%, rgba(11, 16, 38, 0.4) 100%);
+    padding-top: 80px; /* Account for fixed header */
 }
 
 .about-section,
@@ -73,7 +74,11 @@ h1, h2, h3, h4, h5, h6 {
 .technology-section,
 .contact-section {
     position: relative;
-    /* Smooth fade transitions between sections */
+    /* Increased spacing for "breathing room" */
+    padding-top: 120px;
+    padding-bottom: 120px;
+    margin-bottom: 40px;
+    
     /* Premium Glassmorphic Background */
     background: rgba(11, 16, 38, 0.4); /* Very transparent dark blue */
     backdrop-filter: blur(8px); /* Subtle blur to smooth out the stars behind */
@@ -82,12 +87,42 @@ h1, h2, h3, h4, h5, h6 {
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+/* Scroll Animation Classes */
+.reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1); /* Smooth ease-out */
+    will-change: opacity, transform;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered animation for children */
+.reveal-children > * {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-children.active > * {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-children.active > *:nth-child(1) { transition-delay: 0.1s; }
+.reveal-children.active > *:nth-child(2) { transition-delay: 0.2s; }
+.reveal-children.active > *:nth-child(3) { transition-delay: 0.3s; }
+.reveal-children.active > *:nth-child(4) { transition-delay: 0.4s; }
+
 .services-section h2,
 .technology-section h2,
 .about-section h2,
 .contact-section h2 {
     color: var(--star-yellow);
-    margin-bottom: 3rem;
+    margin-bottom: 4rem; /* More space below titles */
     font-weight: 700;
     text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
