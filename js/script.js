@@ -59,32 +59,55 @@ async function setupCryptoPriceTicker() {
     const tickerElement = document.createElement('div');
     tickerElement.className = 'crypto-ticker glass-ticker fixed bottom-0 left-0 right-0 text-white py-2 text-sm';
     tickerElement.style.overflowX = 'hidden';
+    tickerElement.style.whiteSpace = 'nowrap';
     document.body.appendChild(tickerElement);
 
     const currencies = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'SOLUSDT', 'XRPUSDT', 'LTCUSDT', 'DOGEUSDT', 'BOMEUSDT'];
-    let tickerContent = '';
 
-    for (const currency of currencies) {
-        const price = await fetchPrice(currency);
-        tickerContent += `${currency.replace('USDT', '')}: $${price} | `;
+    async function updateTicker() {
+        let tickerContent = '';
+        for (const currency of currencies) {
+            const price = await fetchPrice(currency);
+            tickerContent += `${currency.replace('USDT', '')}: $${price} | `;
+        }
+        
+        // Create a span for the content to measure and animate it
+        const contentSpan = document.createElement('span');
+        contentSpan.className = 'ticker-content';
+        contentSpan.style.display = 'inline-block';
+        contentSpan.textContent = tickerContent;
+        
+        // Clear previous content
+        tickerElement.innerHTML = '';
+        tickerElement.appendChild(contentSpan);
+
+        // Calculate duration based on width for consistent speed (e.g., 50 pixels per second)
+        const containerWidth = window.innerWidth;
+        const contentWidth = contentSpan.offsetWidth;
+        const totalDistance = containerWidth + contentWidth;
+        const speed = 100; // pixels per second
+        const duration = totalDistance / speed;
+
+        // Reset position to right side
+        contentSpan.style.transform = `translateX(${containerWidth}px)`;
+        contentSpan.style.transition = 'none';
+
+        // Force reflow
+        contentSpan.offsetHeight;
+
+        // Animate to left side
+        contentSpan.style.transition = `transform ${duration}s linear`;
+        contentSpan.style.transform = `translateX(-${contentWidth}px)`;
+
+        // Wait for animation to finish + 1 second pause
+        setTimeout(() => {
+            // Recursively call to update prices and restart animation
+            updateTicker();
+        }, (duration * 1000) + 1000);
     }
 
-    tickerElement.innerHTML = `<div class="ticker-content">${tickerContent}</div>`;// Removed the tickerContent.repeat(2)
-
-    const tickerContentElement = tickerElement.querySelector('.ticker-content');
-    tickerContentElement.style.display = 'inline-block';
-    tickerContentElement.style.whiteSpace = 'nowrap';
-    tickerContentElement.style.paddingLeft = '100%';
-    tickerContentElement.style.animation = 'ticker 30s linear infinite';
-
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes ticker {
-            0% { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(-50%, 0, 0); }
-        }
-    `;
-    document.head.appendChild(style);
+    // Start the loop
+    updateTicker();
 }
 
 async function fetchPrice(symbol) {
