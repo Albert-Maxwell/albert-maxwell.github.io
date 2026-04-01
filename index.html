@@ -39,9 +39,6 @@
                         Trading</span></h1>
                 <p class="text-xl mb-8">Powered by AI, Driven by Innovation. Experience the future of cryptocurrency
                     trading with Albert Maxwell Technologies.</p>
-                <a href="#contact"
-                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full transition duration-300">Get
-                    Started</a>
             </div>
         </section>
 
@@ -147,23 +144,31 @@
                 <h2 class="text-3xl font-bold mb-12 text-center">Contact Us</h2>
                 <form class="max-w-lg mx-auto glass-panel p-8 rounded-2xl" id="contactForm">
                     <div class="mb-6">
-                        <input type="text" placeholder="Your Name"
+                        <input id="contactName" name="name" type="text" placeholder="Your Name"
                             class="w-full p-3 bg-gray-800 bg-opacity-50 border border-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                             required>
                     </div>
                     <div class="mb-6">
-                        <input type="email" placeholder="Your Email"
+                        <input id="contactEmail" name="email" type="email" placeholder="Your Email"
                             class="w-full p-3 bg-gray-800 bg-opacity-50 border border-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                             required>
                     </div>
                     <div class="mb-6">
-                        <textarea placeholder="Your Message" rows="4"
+                        <input id="contactSubject" name="subject" type="text" placeholder="Your Subject"
+                            class="w-full p-3 bg-gray-800 bg-opacity-50 border border-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                            required>
+                    </div>
+                    <div class="mb-6">
+                        <textarea id="contactMessage" name="message" placeholder="Your Message" rows="4"
                             class="w-full p-3 bg-gray-800 bg-opacity-50 border border-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                             required></textarea>
                     </div>
                     <button type="submit"
                         class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">Send
                         Message</button>
+                    <p id="contactFormStatus" class="contact-form-status mt-4 text-sm text-slate-300" aria-live="polite">
+                        Submitting opens your email app with a pre-filled message to compliance.enlitech@gmail.com.
+                    </p>
                 </form>
             </div>
         </section>
@@ -180,6 +185,7 @@
         </div>
     </footer>
 
+    <script src="js/contact-mailto.js"></script>
     <script src="js/script.js"></script>
 </body>
 

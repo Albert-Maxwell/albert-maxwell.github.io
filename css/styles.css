@@ -208,6 +208,12 @@ input:focus, textarea:focus {
     box-shadow: 0 0 0 2px rgba(244, 208, 63, 0.2) !important;
 }
 
+input[aria-invalid="true"],
+textarea[aria-invalid="true"] {
+    border-color: #fca5a5 !important;
+    box-shadow: 0 0 0 2px rgba(252, 165, 165, 0.15) !important;
+}
+
 button[type="submit"], .hero-section a {
     background: linear-gradient(135deg, #1a3c7a, #2c5aa0);
     border: 1px solid rgba(255,255,255,0.1);

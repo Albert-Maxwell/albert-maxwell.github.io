@@ -130,17 +130,37 @@ async function fetchPrice(symbol) {
 function setupContactForm() {
     const form = document.querySelector('#contactForm');
     if (form) {
+        const nameInput = form.querySelector('#contactName');
+        const emailInput = form.querySelector('#contactEmail');
+        const subjectInput = form.querySelector('#contactSubject');
+        const messageInput = form.querySelector('#contactMessage');
+        const statusElement = form.querySelector('#contactFormStatus');
+
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            const nameInput = form.querySelector('input[type="text"]');
-            const emailInput = form.querySelector('input[type="email"]');
-            const messageInput = form.querySelector('textarea');
 
-            if (validateInput(nameInput) && validateInput(emailInput) && validateInput(messageInput)) {
-                alert('Form submitted successfully!');
-                form.reset();
+            const isFormValid = [
+                validateInput(nameInput),
+                validateInput(emailInput),
+                validateInput(subjectInput),
+                validateInput(messageInput)
+            ].every(Boolean);
+
+            if (!isFormValid) {
+                updateContactFormStatus(statusElement, 'Please complete all fields before sending your message.', true);
+                return;
             }
+
+            const mailtoUrl = window.ContactMailto.buildContactMailtoUrl({
+                to: 'compliance.enlitech@gmail.com',
+                name: nameInput.value,
+                email: emailInput.value,
+                subject: subjectInput.value,
+                message: messageInput.value
+            });
+
+            updateContactFormStatus(statusElement, 'Opening your email app with a pre-filled message to compliance.enlitech@gmail.com.', false);
+            window.location.href = mailtoUrl;
         });
     }
 }
@@ -148,9 +168,21 @@ function setupContactForm() {
 function validateInput(input) {
     if (input.value.trim() === '') {
         input.classList.add('border-red-500');
+        input.setAttribute('aria-invalid', 'true');
         return false;
     } else {
         input.classList.remove('border-red-500');
+        input.removeAttribute('aria-invalid');
         return true;
     }
+}
+
+function updateContactFormStatus(statusElement, message, isError) {
+    if (!statusElement) {
+        return;
+    }
+
+    statusElement.textContent = message;
+    statusElement.classList.toggle('text-red-300', isError);
+    statusElement.classList.toggle('text-slate-300', !isError);
 }
