@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setupCopyrightYear();
 });
 
+const CONTACT_EMAIL = '';
+
 function setupCopyrightYear() {
     const copyright = document.getElementById('copyright');
     if (copyright) {
@@ -135,6 +137,17 @@ function setupContactForm() {
         const subjectInput = form.querySelector('#contactSubject');
         const messageInput = form.querySelector('#contactMessage');
         const statusElement = form.querySelector('#contactFormStatus');
+        const submitButton = form.querySelector('button[type="submit"]');
+
+        if (!CONTACT_EMAIL) {
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.classList.add('opacity-60', 'cursor-not-allowed');
+            }
+
+            updateContactFormStatus(statusElement, 'Email contact is temporarily unavailable while we set up the inbox.', true);
+            return;
+        }
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -152,14 +165,14 @@ function setupContactForm() {
             }
 
             const mailtoUrl = window.ContactMailto.buildContactMailtoUrl({
-                to: 'compliance.enlitech@gmail.com',
+                to: CONTACT_EMAIL,
                 name: nameInput.value,
                 email: emailInput.value,
                 subject: subjectInput.value,
                 message: messageInput.value
             });
 
-            updateContactFormStatus(statusElement, 'Opening your email app with a pre-filled message to compliance.enlitech@gmail.com.', false);
+            updateContactFormStatus(statusElement, 'Opening your email app with a pre-filled message.', false);
             window.location.href = mailtoUrl;
         });
     }

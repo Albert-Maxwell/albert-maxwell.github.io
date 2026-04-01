@@ -5,6 +5,10 @@
 
     function buildContactMailtoUrl({ to, name, email, subject, message }) {
         const recipient = sanitizeField(to);
+        if (!recipient) {
+            throw new Error('Recipient email is not configured.');
+        }
+
         const emailSubject = sanitizeField(subject);
         const body = [
             `Name: ${sanitizeField(name)}`,
