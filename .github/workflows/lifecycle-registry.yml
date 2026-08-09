@@ -1,0 +1,14 @@
+name: Lifecycle registry hygiene
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lifecycle-registry:
+    uses: Albert-Maxwell/.github/.github/workflows/lifecycle-registry.yml@main
