@@ -1,0 +1,63 @@
+name: Static site validation
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/static-site.yml"
+      - "README.md"
+      - "index.html"
+      - "css/**"
+      - "images/**"
+      - "js/**"
+      - "tests/**"
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/static-site.yml"
+      - "README.md"
+      - "index.html"
+      - "css/**"
+      - "images/**"
+      - "js/**"
+      - "tests/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  links:
+    name: local links and assets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the site
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Check local links and fragments
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          args: >-
+            --offline
+            --include-fragments=anchor-only
+            --root-dir "${{ github.workspace }}"
+            --no-progress
+            './**/*.html'
+            './**/*.md'
+            './**/*.css'
+
+  contracts:
+    name: static site contracts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the site
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Validate IDs and referenced files
+        run: python -m unittest discover -s tests -p 'test_*.py'
+
+      - name: Run JavaScript tests
+        run: node --test tests/*.test.js

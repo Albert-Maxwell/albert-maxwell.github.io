@@ -26,13 +26,13 @@ To run this project locally:
 1. Clone the repository
 2. Ensure you have the following folder structure:
    ```
-   .albert-maxwell.github.io
+   albert-maxwell.github.io
    ├── README.md
    ├── css
    │   └── styles.css
    ├── images
    │   ├── about-background.png
-   │   ├── albert-maxwell-logo.png
+   │   ├── albert-maxwell-logo-square.png
    │   ├── fudan-logo.png
    │   ├── hero-background.png
    │   ├── imperial-college-logo.png
@@ -45,7 +45,9 @@ To run this project locally:
    │   └── yale-logo.jpeg
    ├── index.html
    └── js
-      └── script.js
+      ├── contact-mailto.js
+      ├── script.js
+      └── starry-night.js
    ```
 3. Open `index.html` in your browser
 
@@ -58,7 +60,8 @@ To run this project locally:
 
 ## Deployment
 
-This site is deployed using GitHub Pages. Any push to the `master` branch will automatically update the live site.
+GitHub Pages publishes the repository root directly from the `main` branch. No
+package-manager or site-generator build is involved.
 
 ## Contact
 
