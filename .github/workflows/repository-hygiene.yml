@@ -1,0 +1,14 @@
+name: Repository hygiene
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  repository-hygiene:
+    uses: Albert-Maxwell/.github/.github/workflows/repository-hygiene.yml@0dc8fa4adbb5fb725a94680288843cda19dcf5db
