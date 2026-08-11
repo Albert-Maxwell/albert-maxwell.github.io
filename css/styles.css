@@ -2,6 +2,16 @@
    Flat, architectural, set entirely in Archivo: red on a near-white ground,
    a visible modular grid, zero corner radius and strong 2px rules. */
 
+/* Archivo, self-hosted as a variable font so the site has no external
+   dependency and renders identically where Google Fonts is unreachable. */
+@font-face {
+    font-family: "Archivo";
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url("../fonts/archivo-latin.woff2") format("woff2");
+}
+
 :root {
     --color-bg: #f3f2f2;
     --color-surface: #eae9e9;
