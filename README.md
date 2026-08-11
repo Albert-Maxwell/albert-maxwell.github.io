@@ -14,6 +14,8 @@ albert-maxwell.github.io
 ├── README.md
 ├── css
 │   └── styles.css
+├── fonts
+│   └── archivo-latin.woff2
 ├── images
 │   └── albert-maxwell-logo-square.png
 ├── index.html
@@ -21,7 +23,7 @@ albert-maxwell.github.io
     └── test_static_site.py
 ```
 
-The site is a single static page with no JavaScript and no build step. The only external dependency is the Archivo font from Google Fonts.
+The site is a single static page with no JavaScript, no build step and no external dependencies — the Archivo variable font is self-hosted from `fonts/`.
 
 ## Testing
 
