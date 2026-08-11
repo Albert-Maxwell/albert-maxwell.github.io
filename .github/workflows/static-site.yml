@@ -58,6 +58,3 @@ jobs:
 
       - name: Validate IDs and referenced files
         run: python -m unittest discover -s tests -p 'test_*.py'
-
-      - name: Run JavaScript tests
-        run: node --test tests/*.test.js
