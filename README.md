@@ -1,70 +1,38 @@
-# Albert Maxwell Crypto Trading Website
+# Albert-Maxwell — Event-driven research lab
 
-This is the official website for Albert Maxwell's crypto trading services. Our platform leverages cutting-edge AI and high-frequency trading technologies to deliver exceptional results in the dynamic world of digital assets.
+The website for Albert-Maxwell, served at https://www.albert-maxwell.com/. The site positions the firm as an event-driven research lab: we forecast the minutes after an event and trade them at low latency, on infrastructure that rewrites itself as its models decay.
 
-## Features
+## Design
 
-- High-Frequency Trading
-- Low-Latency Execution
-- AI-Driven Analysis
-- Web3 Integration
-- Real-time Crypto Price Ticker
-- Smooth Scroll Navigation
-- Contact Form with Validation
+The page follows the Modernist design system: everything set in Archivo, a near-white ground with a single red accent, a visible modular grid, zero corner radius and strong 2px rules. All colors, fonts and spacing come from the CSS custom properties at the top of `css/styles.css` — retune the look there rather than hard-coding values in the markup.
 
-## Technologies Used
+## Structure
 
-- HTML5
-- CSS3 (with Tailwind CSS)
-- JavaScript
-- Font Awesome for icons
+```
+albert-maxwell.github.io
+├── CNAME
+├── README.md
+├── css
+│   └── styles.css
+├── images
+│   └── albert-maxwell-logo-square.png
+├── index.html
+└── tests
+    └── test_static_site.py
+```
 
-## Setup
+The site is a single static page with no JavaScript and no build step. The only external dependency is the Archivo font from Google Fonts.
 
-To run this project locally:
+## Testing
 
-1. Clone the repository
-2. Ensure you have the following folder structure:
-   ```
-   albert-maxwell.github.io
-   ├── README.md
-   ├── css
-   │   └── styles.css
-   ├── images
-   │   ├── about-background.png
-   │   ├── albert-maxwell-logo-square.png
-   │   ├── fudan-logo.png
-   │   ├── hero-background.png
-   │   ├── imperial-college-logo.png
-   │   ├── northeastern-logo.png
-   │   ├── services-background.png
-   │   ├── shanghai-jiaotong-logo.png
-   │   ├── starry-night.png
-   │   ├── stony-brook-logo.jpeg
-   │   ├── technology-background.png
-   │   └── yale-logo.jpeg
-   ├── index.html
-   └── js
-      ├── contact-mailto.js
-      ├── script.js
-      └── starry-night.js
-   ```
-3. Open `index.html` in your browser
+`tests/test_static_site.py` checks that HTML ids are unique, that local links and fragments resolve, and that every asset referenced from CSS exists. CI also runs an offline link check with lychee. Run the tests locally with:
 
-## Customization
-
-- To change the background images, replace the files in the `images/` directory and update the URLs in `styles.css` if necessary.
-- Modify the content in `index.html` to update the text and structure of the website.
-- Adjust styles in `styles.css` to change the appearance of the website.
-- Modify `script.js` to add or change dynamic features of the website.
+```
+python -m unittest discover -s tests -p 'test_*.py'
+```
 
 ## Deployment
 
-GitHub Pages publishes the repository root directly from the `main` branch. No
-package-manager or site-generator build is involved.
+GitHub Pages publishes the repository root directly from the `main` branch — a push to `main` redeploys the site. The custom domain is configured through `CNAME` and the repository's Pages settings, with HTTPS enforced.
 
-## Contact
-
-For any inquiries, please reach out through the contact form on our website.
-
-© 2024 Albert Maxwell. All rights reserved.
+© 2026 Albert-Maxwell. All rights reserved.
